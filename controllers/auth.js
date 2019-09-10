@@ -1,13 +1,19 @@
 const { validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const expressJwt = require('express-jwt');
+const _ = require('lodash');
 
 const User = require('../models/user');
 
 exports.signup = (req, res) => {
     const errors = validationResult(req);
+
+    var sortedErrors = _.chain(errors.errors)
+        .groupBy("param")
+        .value();
+
     if (!errors.isEmpty()) {
-        return res.status(422).json({ err: errors.array() });
+        return res.status(422).json({ err: sortedErrors });
     }
 
     const user = new User(req.body);

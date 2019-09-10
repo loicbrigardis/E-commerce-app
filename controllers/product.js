@@ -12,7 +12,7 @@ exports.productById = async (req, res, next, id) => {
             err: [{ msg: "Products not found" }]
         })
     } else {
-        const product = await Product.findById(id)
+        const product = await Product.findById(id).populate('category')
 
         if (!product) {
             return res.status(400).json({
@@ -261,4 +261,26 @@ exports.photo = (req, res, next) => {
         return res.send(req.product.photo.data);
     }
     next();
+}
+
+exports.listSearch = (req, res) => {
+    //create query ibj to hold search value
+    const query = {}
+    if (req.query.search) {
+        // query.name = { $regex: req.query.search, $options: 'i' };
+        query.description = { $regex: req.query.search, $options: 'i' };
+
+        if (req.query.category && req.query.category != 'All') {
+            query.category = req.query.category
+        }
+        //find product
+        Product.find(query, (err, products) => {
+            if (err) {
+                return res.status(400).json({
+                    err: [{ msg: "Products not found" }]
+                })
+            }
+            res.json(products);
+        }).select('-photo');
+    }
 }
