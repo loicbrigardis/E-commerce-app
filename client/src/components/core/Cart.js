@@ -7,12 +7,18 @@ import { getCart, removeItem } from './cartHelpers';
 import { MDBCol, MDBRow } from 'mdbreact';
 
 
-const Cart = () => {
+const Cart = (props) => {
     const [items, setItems] = useState([]);
+    const [refresh, setRefresh] = useState(0);
 
     useEffect(() => {
         setItems(getCart())
-    }, [])
+    }, [refresh])
+
+    const refreshPage = () => {
+        setRefresh(Math.random())
+    }
+
 
     const showItems = items => {
         return (
@@ -26,6 +32,7 @@ const Cart = () => {
                         showAddToCartButton={false}
                         showRemoveProductButton={true}
                         cartUpdate={true}
+                        refreshPage={refreshPage}
                     />
                 ))}
             </>

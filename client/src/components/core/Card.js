@@ -7,7 +7,7 @@ import { MDBBtn, MDBBadge, MDBRow, MDBCard, MDBCardBody, MDBCardImage, MDBCardTi
 import ShowImage from './showImage';
 import { addItem, updateItem, removeItem } from './cartHelpers';
 
-const Card = ({ product, isSingle = false, showAddToCartButton = true, cartUpdate = false, showRemoveProductButton = false, ...rest }) => {
+const Card = ({ product, refreshPage, isSingle = false, showAddToCartButton = true, cartUpdate = false, showRemoveProductButton = false, ...rest }) => {
 
     const [redirect, setRedirect] = useState(false);
     const [count, setCount] = useState(product.count);
@@ -21,7 +21,6 @@ const Card = ({ product, isSingle = false, showAddToCartButton = true, cartUpdat
     const addToCard = () => {
         addItem(product, () => {
             setRedirect(true)
-            console.log(redirect);
         })
     }
 
@@ -45,6 +44,7 @@ const Card = ({ product, isSingle = false, showAddToCartButton = true, cartUpdat
         setCount(value < 1 ? 1 : value)
         if (value >= 1) {
             updateItem(productId, value);
+            refreshPage();
         }
     }
 
@@ -68,7 +68,7 @@ const Card = ({ product, isSingle = false, showAddToCartButton = true, cartUpdat
                 <button
                     onClick={() => {
                         removeItem(product._id);
-                        // setRedirect(true);
+                        refreshPage();
                     }}
                     type="button"
                     className="btn btn-light btn-sm">Remove product</button>

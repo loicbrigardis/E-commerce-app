@@ -1,12 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '../core/Layout';
 import { isAuthentificated } from '../auth';
+import { getPurchaseHistory } from './apiUser';
+import moment from 'moment';
 
 import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBTable, MDBTableBody, MDBTableHead, MDBCardText, MDBCol, MDBListGroup, MDBListGroupItem, MDBRow } from 'mdbreact';
 
 const Dashboard = () => {
+    const [history, setHistory] = useState([]);
     const { user: { _id, name, userEmail: email, role } } = isAuthentificated();
+    const token = isAuthentificated().token;
+
+    const init = (userId, token) => {
+        getPurchaseHistory(userId, token)
+            .then(data => {
+                if (data.error) {
+                    console.log(data.error);
+                } else {
+                    setHistory(data);
+                }
+            })
+    }
+
+    useEffect(() => {
+        init(_id, token)
+    }, [])
 
     const userLinks = () => {
         return (
@@ -17,7 +36,7 @@ const Dashboard = () => {
                         <Link to="/cart">My Cart</Link>
                     </MDBListGroupItem>
                     <MDBListGroupItem>
-                        <Link to="/profile/update">Update profile</Link>
+                        <Link to={`/profile/${_id}`}>Update profile</Link>
                     </MDBListGroupItem>
                 </MDBListGroup>
             </MDBCardBody>
@@ -47,32 +66,24 @@ const Dashboard = () => {
             <MDBTable>
                 <MDBTableHead>
                     <tr>
-                        <th>#</th>
-                        <th>First</th>
-                        <th>Last</th>
-                        <th>Handle</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Date</th>
                     </tr>
                 </MDBTableHead>
-                <MDBTableBody>
-                    <tr>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                    </tr>
-                </MDBTableBody>
+                {history.map((h, i) => {
+                    return h.products.map((product, iProduct) => {
+                        return (
+                            <MDBTableBody key={iProduct}>
+                                <tr>
+                                    <td>{product.name}</td>
+                                    <td>{product.price} €</td>
+                                    <td>{moment(h.createdAt).fromNow()}</td>
+                                </tr>
+                            </MDBTableBody>
+                        )
+                    })
+                })}
             </MDBTable>
         </MDBCol>
     )
@@ -82,7 +93,7 @@ const Dashboard = () => {
             <Layout title="Dashboard" description={`Nice to see you ${name}`}>
                 <MDBRow className="mb-5">
                     {userInfo()}
-                    {userHistory()}
+                    {userHistory(history)}
                 </MDBRow>
             </Layout>
         </>

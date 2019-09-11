@@ -2,12 +2,13 @@ const express = require('express');
 const router = express.Router();
 
 const { requireSignin, isAdmin, isAuth } = require('../controllers/auth.js');
-const { userById, read, update } = require('../controllers/user.js');
+const { userById, read, update, purchaseHistory } = require('../controllers/user.js');
 
 //TEST ROUTE
 //router.get('/secret/:userId', requireSignin, isAuth, isAdmin, (req, res) => { res.json({ user: req.profile }) });
 
 router.get('/user/:userId', requireSignin, isAuth, read);
+router.get('/orders/by/user/:userId', requireSignin, isAuth, purchaseHistory);
 router.put('/user/:userId', requireSignin, isAuth, update);
 
 router.param('userId', userById);

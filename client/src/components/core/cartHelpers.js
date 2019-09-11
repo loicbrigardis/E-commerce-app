@@ -11,10 +11,11 @@ export const addItem = (item, next) => {
             count: 1
         })
 
-        cart = [...new Set(cart
-            .map((p) => (p._id)) //return productId
-            .map((id) => cart.find(p => p._id === id))
-        )];
+        cart = Array.from(new Set(
+            cart
+                .map((p) => (p._id))
+                .map((id) => { return cart.find(p => p._id === id) })
+        ));
 
         localStorage.setItem('cart', JSON.stringify(cart));
         next();
@@ -72,4 +73,11 @@ export const removeItem = (productId) => {
         localStorage.setItem('cart', JSON.stringify(cart));
     }
     return cart;
+}
+
+export const emptyCart = next => {
+    if (typeof window !== 'undefined') {
+        localStorage.removeItem('cart')
+        next();
+    }
 }

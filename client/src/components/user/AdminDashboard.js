@@ -14,10 +14,16 @@ const AdminDashboard = () => {
                 <MDBCardTitle>Admin Links</MDBCardTitle>
                 <MDBListGroup>
                     <MDBListGroupItem>
-                        <Link to="/category/create">Create Category</Link>
+                        <Link to="/category/create">Create category</Link>
                     </MDBListGroupItem>
                     <MDBListGroupItem>
-                        <Link to="/product/create">Create product</Link>
+                        <Link to={`/product/create/${_id}`}>Create product</Link>
+                    </MDBListGroupItem>
+                    <MDBListGroupItem>
+                        <Link to="/admin/orders">View orders</Link>
+                    </MDBListGroupItem>
+                    <MDBListGroupItem>
+                        <Link to="/admin/products">Manage products</Link>
                     </MDBListGroupItem>
                 </MDBListGroup>
             </MDBCardBody>

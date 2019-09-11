@@ -50,7 +50,6 @@ export const getFilteredProducts = (skip, limit, filters = {}) => {
 
 export const list = (params) => {
     const query = queryString.stringify(params);
-    console.log(query);
     return fetch(`${API}/products/search?${query}`, {
         method: "GET"
     })
@@ -64,6 +63,56 @@ export const listRelated = (productId) => {
 
     return fetch(`${API}/products/related/${productId}`, {
         method: "GET"
+    })
+        .then(res => {
+            return res.json()
+        })
+        .catch(err => console.error(err))
+}
+
+export const getBraintreeClientToken = (userId, token) => {
+
+    return fetch(`${API}/braintree/getToken/${userId}`, {
+        method: "GET",
+        headers: {
+            Accept: 'application/json',
+            "Content-Type": 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+    })
+        .then(res => {
+            return res.json()
+        })
+        .catch(err => console.error(err))
+}
+
+export const processPayment = (userId, token, paymentData) => {
+
+    return fetch(`${API}/braintree/payment/${userId}`, {
+        method: "POST",
+        headers: {
+            Accept: 'application/json',
+            "Content-Type": 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(paymentData)
+    })
+        .then(res => {
+            return res.json()
+        })
+        .catch(err => console.error(err))
+}
+
+export const createOrder = (userId, token, createOrderData) => {
+
+    return fetch(`${API}/order/create/${userId}`, {
+        method: "POST",
+        headers: {
+            Accept: 'application/json',
+            "Content-Type": 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ order: createOrderData })
     })
         .then(res => {
             return res.json()

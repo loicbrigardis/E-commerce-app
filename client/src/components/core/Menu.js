@@ -53,9 +53,11 @@ const Menu = ({ history }) => {
                                 </>
                             )}
                             {isAuthentificated() && isAuthentificated().user.role === 0 && (
-                                <MDBNavItem active={isActive(history, '/user/dashboard')}>
-                                    <MDBNavLink to="/user/dashboard">Dashboard</MDBNavLink>
-                                </MDBNavItem>
+                                <>
+                                    <MDBNavItem active={isActive(history, '/user/dashboard')}>
+                                        <MDBNavLink to="/user/dashboard">Dashboard</MDBNavLink>
+                                    </MDBNavItem>
+                                </>
                             )}
                             {isAuthentificated() && isAuthentificated().user.role === 1 && (
 
