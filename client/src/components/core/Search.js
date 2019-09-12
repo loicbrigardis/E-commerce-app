@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Layout from './Layout';
 import { getCategories, list } from './apiCore';
 import Card from './Card';
-import { MDBCol, MDBRow, MDBDropdown, MDBDropdownItem, MDBDropdownToggle, MDBDropdownMenu, MDBFormInline, MDBBtn, MDBNavbarBrand, MDBCard, MDBNavbarToggler, MDBNavbar, MDBCollapse, MDBNavbarNav } from
-    "mdbreact";
+import { MDBCol, MDBRow, MDBBtn, MDBCard } from "mdbreact";
 
 const Search = () => {
     const [data, setData] = useState({
@@ -101,14 +99,18 @@ const Search = () => {
                                         className="form-control"
                                         id="search"
                                         aria-describedby="search"
-                                        placeholder="Search"
+                                        placeholder="Search a book"
                                         onChange={handleChange('search')}
                                     />
                                 </div>
                             </form>
 
                             <div className="ml-3" >
-                                <MDBBtn style={{ height: "38px", borderRadius: "5px", paddingTop: "0.5rem" }} outline color="primary" className="m-0">Search</MDBBtn>
+                                <MDBBtn style={{ height: "38px", borderRadius: "5px", paddingTop: "0.5rem" }}
+                                    outline
+                                    onClick={handleSubmit}
+                                    color="primary"
+                                    className="m-0">Search</MDBBtn>
                             </div>
                         </div>
                     </MDBCard>

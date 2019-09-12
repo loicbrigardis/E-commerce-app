@@ -5,6 +5,8 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const compression = require('compression');
+const path = require('path');
 require('dotenv').config();
 
 //VARIABLES
@@ -32,10 +34,12 @@ mongoose.connect(process.env.DATABASE, {
 
 //MIDDLEWARES
 app.use(morgan('dev'));
+app.use(compression())
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+app.use(express.static(path.join(__dirname, 'build')));
 
 //ROUTES MIDDLEWARES
 app.use('/api', authRoute);
@@ -44,6 +48,10 @@ app.use('/api', categoryRoute);
 app.use('/api', productRoute);
 app.use('/api', braintreeRoute);
 app.use('/api', orderRoute);
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', index.html));
+})
 
 //LISTENER
 app.listen(port, () => {

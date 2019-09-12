@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Layout from './Layout';
 import Card from './Card';
 import Checkout from './Checkout';
-import { getCart, removeItem } from './cartHelpers';
+import { getCart } from './cartHelpers';
 import { MDBCol, MDBRow } from 'mdbreact';
 
 

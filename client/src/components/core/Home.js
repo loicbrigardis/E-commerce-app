@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { MDBRow, MDBCol } from 'mdbreact';
 import Layout from './Layout';
-import { API } from '../../config';
 import { getProducts } from './apiCore';
 import Card from './Card';
 import Search from './Search';
@@ -39,8 +38,9 @@ const Home = () => {
     }, [])
 
     return (
-        <Layout title="Homepage" description="E-commerce site">
+        <Layout title="E-Books everywhere" description="Expand your imagination">
             <Search />
+            {error ? <p>{error}</p> : ''}
             <h2>New Arrivals Sellers</h2>
             <MDBRow>
                 {productsByArrival.map((product, i) => (

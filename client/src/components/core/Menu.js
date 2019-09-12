@@ -16,13 +16,13 @@ const isActive = (history, to) => {
 const Menu = ({ history }) => {
     const [collapse, setCollapse] = useState(false);
 
-    const bgColor = { backgroundColor: '#315C8A' }
+    const bgColor = { backgroundColor: 'rgba(0, 0, 0, 0.85)' }
     return (
         <div>
             <header>
                 <MDBNavbar style={bgColor} dark expand="md" scrolling fixed="top">
                     <MDBNavbarBrand href="/">
-                        <strong>E-commerce</strong>
+                        <strong>E-Books'</strong>
                     </MDBNavbarBrand>
                     <MDBNavbarToggler onClick={() => setCollapse(!collapse)} />
                     <MDBCollapse navbar isOpen={collapse}>
@@ -68,7 +68,6 @@ const Menu = ({ history }) => {
                             )}
                             {isAuthentificated() && (
                                 <>
-
                                     <MDBNavItem>
                                         <MDBDropdown>
                                             <MDBDropdownToggle nav caret>

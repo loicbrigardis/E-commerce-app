@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import Layout from '../core/Layout';
 import { isAuthentificated } from '../auth';
 
 import { read, update, updateUser } from './apiUser';
-import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBIcon } from 'mdbreact';
+import { MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBIcon } from 'mdbreact';
 
 const Profile = ({ match }) => {
     const [values, setValues] = useState({
@@ -15,7 +15,7 @@ const Profile = ({ match }) => {
         success: false
     });
 
-    const { name, email, password, error, success } = values;
+    const { name, email, password, success } = values;
     const { token } = isAuthentificated();
 
     const init = (userId) => {

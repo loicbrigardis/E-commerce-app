@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { MDBRow, MDBCol } from 'mdbreact';
 import Layout from './Layout';
-import { API } from '../../config';
 import { read } from './apiCore';
 import Card from './Card';
-import Search from './Search';
 import { listRelated } from './apiCore';
 
 const Product = (props) => {
@@ -44,10 +42,10 @@ const Product = (props) => {
                     {product && product.description && product.description && (
                         <Card product={product} isSingle={true} />
                     )}
-
                 </MDBCol>
                 <MDBCol md="4">
                     <h4>Related product</h4>
+                    {error ? <p>{error}</p> : ''}
                     {relatedProduct.map((product, i) => (
                         <Card key={i} product={product} />
                     ))}

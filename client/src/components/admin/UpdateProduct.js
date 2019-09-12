@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { MDBAlert, MDBRow, MDBCol, MDBBtn, MDBIcon } from 'mdbreact';
 
 import Layout from '../core/Layout';
@@ -7,7 +7,7 @@ import { isAuthentificated } from '../auth';
 import { getProduct, getCategories, updateProduct } from './apiAdmin';
 
 
-const UpdateProduct = ({match}) => {
+const UpdateProduct = ({ match }) => {
     const { user, token } = isAuthentificated();
     const [values, setValues] = useState({
         name: '',
@@ -25,7 +25,7 @@ const UpdateProduct = ({match}) => {
         formData: ''
     })
 
-    const { name, description, price, categories, photo, category, shipping, quantity, loading, error, createdProduct, redirectToProfile, formData } = values;
+    const { name, description, price, categories, photo, quantity, loading, error, createdProduct, redirectToProfile, formData } = values;
 
     //Load categoeries
     const initCategories = () => {
@@ -45,15 +45,16 @@ const UpdateProduct = ({match}) => {
                 if (data.err) {
                     setValues({ ...values, error: data.err })
                 } else {
-                    setValues({ ...values,
-                    name: data.name,
-                    description: data.description,
-                    price: data.price,
-                    category: data.category._id,
-                    shipping: data.shipping,
-                    quantity: data.quantity,
-                    formData: new FormData(),
-                 })
+                    setValues({
+                        ...values,
+                        name: data.name,
+                        description: data.description,
+                        price: data.price,
+                        category: data.category._id,
+                        shipping: data.shipping,
+                        quantity: data.quantity,
+                        formData: new FormData(),
+                    })
 
                     //Init categories
                     initCategories();
@@ -64,7 +65,6 @@ const UpdateProduct = ({match}) => {
 
     useEffect(() => {
         init(match.params.productId);
-
     }, [])
 
     const handleChange = (e) => {
@@ -80,7 +80,7 @@ const UpdateProduct = ({match}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setValues({ ...values, error: '', loading: true });
-       updateProduct(match.params.productId, user._id, token, formData)
+        updateProduct(match.params.productId, user._id, token, formData)
             .then((data) => {
                 if (data.err) {
                     setValues({ ...values, error: data.err });
@@ -257,8 +257,8 @@ const UpdateProduct = ({match}) => {
     }
 
     const redirectUser = () => {
-        if(redirectToProfile) {
-            if(!error) {
+        if (redirectToProfile) {
+            if (!error) {
                 return <Redirect to="/" />
             }
         }

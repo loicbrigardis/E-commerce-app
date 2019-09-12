@@ -5,7 +5,7 @@ import { isAuthentificated } from '../auth';
 import { getPurchaseHistory } from './apiUser';
 import moment from 'moment';
 
-import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBTable, MDBTableBody, MDBTableHead, MDBCardText, MDBCol, MDBListGroup, MDBListGroupItem, MDBRow } from 'mdbreact';
+import { MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBTable, MDBTableBody, MDBTableHead, MDBCol, MDBListGroup, MDBListGroupItem, MDBRow } from 'mdbreact';
 
 const Dashboard = () => {
     const [history, setHistory] = useState([]);
@@ -25,7 +25,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         init(_id, token)
-    }, [])
+    }, [_id, token])
 
     const userLinks = () => {
         return (

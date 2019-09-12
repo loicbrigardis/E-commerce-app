@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { MDBInput } from 'mdbreact';
+import React, { useState } from 'react';
 
 const CheckBox = ({ categories, handleFilters }) => {
     const [checked, setChecked] = useState([]);

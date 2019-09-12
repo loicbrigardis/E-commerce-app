@@ -11,10 +11,10 @@ const Layout = ({ title = 'Title', description = 'description', children }) => {
                 <MDBRow>
                     <MDBCol style={{ padding: 0 }} >
                         <MDBJumbotron style={{ padding: 0 }}>
-                            <MDBCol className="text-white text-center py-1 px-4 my-1" style={{ backgroundSize: 'cover', backgroundImage: `url(https://www.emoneysafe.com/site/wp-content/uploads/2017/11/447714f426bb5fea56fe2ebbfd651416.jpg)` }}>
+                            <MDBCol className="text-white effect2 text-center py-1 px-4 my-1" style={{ backgroundSize: 'cover', backgroundImage: `url(https://nordiclifescience.org/wp-content/public_html/2018/01/publication-e1516615172666.jpg)` }}>
                                 <MDBCol className="py-4">
-                                    <MDBCardTitle className="h1-responsive pt-3 m-5 font-bold">{title}</MDBCardTitle>
-                                    <p className="mx-5 mb-2">{description}</p>
+                                    <MDBCardTitle className="l-title h1-responsive pt-3 m-5 font-bold">{title}</MDBCardTitle>
+                                    <p className="l-desc mx-5 mb-2">{description}</p>
                                 </MDBCol>
                             </MDBCol>
                         </MDBJumbotron>

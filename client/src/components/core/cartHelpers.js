@@ -1,4 +1,3 @@
-import Product from "./Product";
 
 export const addItem = (item, next) => {
     let cart = [];

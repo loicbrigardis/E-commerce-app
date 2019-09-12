@@ -60,7 +60,6 @@ export const list = (params) => {
 }
 
 export const listRelated = (productId) => {
-
     return fetch(`${API}/products/related/${productId}`, {
         method: "GET"
     })
@@ -71,7 +70,6 @@ export const listRelated = (productId) => {
 }
 
 export const getBraintreeClientToken = (userId, token) => {
-
     return fetch(`${API}/braintree/getToken/${userId}`, {
         method: "GET",
         headers: {
@@ -87,7 +85,6 @@ export const getBraintreeClientToken = (userId, token) => {
 }
 
 export const processPayment = (userId, token, paymentData) => {
-
     return fetch(`${API}/braintree/payment/${userId}`, {
         method: "POST",
         headers: {
@@ -104,7 +101,6 @@ export const processPayment = (userId, token, paymentData) => {
 }
 
 export const createOrder = (userId, token, createOrderData) => {
-
     return fetch(`${API}/order/create/${userId}`, {
         method: "POST",
         headers: {

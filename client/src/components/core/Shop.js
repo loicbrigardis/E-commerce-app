@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
+import { MDBRow, MDBCol, MDBBtn } from 'mdbreact';
 
 import Layout from './Layout';
 import Card from './Card';
@@ -11,7 +11,7 @@ import { prices } from './fixedPrices';
 const Shop = () => {
     const [categories, setCategories] = useState([]);
     const [error, setError] = useState(false);
-    const [limit, setLimit] = useState(6);
+    const [limit] = useState(6);
     const [skip, setSkip] = useState(0);
     const [size, setSize] = useState(0);
     const [filteredResults, setFilteredResults] = useState([]);
@@ -72,11 +72,10 @@ const Shop = () => {
     }, [])
 
     const handleFilters = (filters, filterBy) => {
-        console.log(filters, filterBy);
         const newFilters = { ...myFilters };
         newFilters.filters[filterBy] = filters;
 
-        if (filterBy == "price") {
+        if (filterBy === "price") {
             let priceValues = handlePrice(filters);
             newFilters.filters[filterBy] = priceValues;
         }
@@ -104,6 +103,7 @@ const Shop = () => {
         <Layout title="Shop page" description="Search book of your choice">
             <MDBRow>
                 <MDBCol md="2">
+                    {error ? <p>{error}</p> : ''}
                     <h4>Filter by categories</h4>
                     <ul className="pl-0">
                         <Checkbox categories={categories} handleFilters={filters => handleFilters(filters, "category")} />

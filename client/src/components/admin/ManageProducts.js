@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { MDBRow, MDBCol, MDBListGroup, MDBListGroupItem, MDBBtn } from 'mdbreact';
-import moment from 'moment';
 import { isAuthentificated } from '../auth';
-import { getProducts, getProduct, updateProduct, deleteProduct } from './apiAdmin';
+import { getProducts, deleteProduct } from './apiAdmin';
 
 import Layout from '../core/Layout';
 

@@ -1,8 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import moment, { updateLocale } from 'moment';
+import moment from 'moment';
 import InputRange from 'react-input-range';
-import { MDBBtn, MDBBadge, MDBRow, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol } from 'mdbreact';
+import { MDBBtn, MDBBadge, MDBCard, MDBIcon, MDBCardBody, MDBCardTitle, MDBCardText } from 'mdbreact';
 
 import ShowImage from './showImage';
 import { addItem, updateItem, removeItem } from './cartHelpers';
@@ -14,7 +14,9 @@ const Card = ({ product, refreshPage, isSingle = false, showAddToCartButton = tr
 
     const singleProductView = () => (
         !isSingle && (<>
-            <Link color="mdb-color" size="sm" to={`/product/${product._id}`}>View product</Link>
+            <MDBBtn outline color="info" size="sm">
+                <Link color="mdb-color" size="sm" to={`/product/${product._id}`}>More infos</Link>
+            </MDBBtn>
         </>)
     )
 
@@ -30,18 +32,19 @@ const Card = ({ product, refreshPage, isSingle = false, showAddToCartButton = tr
         }
     }
 
-
     const showAddToCart = (showAddToCartButton) => {
-        if (showAddToCartButton) {
+        if (showAddToCartButton && product.quantity > 0) {
             return (
-                <MDBBtn onClick={addToCard} size="sm" color="indigo" href="" > Add to the cart</MDBBtn>
+                <MDBBtn className="float-right" onClick={addToCard} size="sm" color="indigo" href="" >
+                    <MDBIcon icon="shopping-cart" />
+                </MDBBtn>
             )
         }
 
     }
 
     const handleChange = (productId, value) => {
-        setCount(value < 1 ? 1 : value)
+        setCount(value < 1 ? 1 : value);
         if (value >= 1) {
             updateItem(productId, value);
             refreshPage();
@@ -76,9 +79,10 @@ const Card = ({ product, refreshPage, isSingle = false, showAddToCartButton = tr
         )
     }
 
-
     const showStock = (product) => {
-        return product > 0 ? (<MDBBadge color="info">In stock</MDBBadge>) : (<MDBBadge color="warning">Not in stock</MDBBadge>)
+        return product > 0
+            ? (<MDBBadge className="ml-2" color="info">In stock</MDBBadge>)
+            : (<MDBBadge className="ml-2" color="warning">Not in stock</MDBBadge>)
     }
 
     return (
@@ -103,7 +107,7 @@ const Card = ({ product, refreshPage, isSingle = false, showAddToCartButton = tr
                 {showStock(product.quantity)}
                 <br />
                 {singleProductView()}
-                <br />
+
                 {showAddToCart(showAddToCartButton)}
 
                 {showCartUpdateOptions(cartUpdate)}

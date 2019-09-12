@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { MDBAlert, MDBRow, MDBCol, MDBBtn, MDBIcon } from 'mdbreact';
 
 import Layout from '../core/Layout';
@@ -25,7 +24,7 @@ const AddProduct = () => {
         formData: ''
     })
 
-    const { name, description, price, categories, photo, category, shipping, quantity, loading, error, createdProduct, redirectToProfile, formData } = values;
+    const { name, description, price, categories, photo, quantity, loading, error, createdProduct, formData } = values;
 
     //Load categoeries
     const init = () => {

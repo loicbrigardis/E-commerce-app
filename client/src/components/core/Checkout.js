@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import DropIn from 'braintree-web-drop-in-react';
 import { MDBBtn, MDBAlert, MDBInput } from "mdbreact";
 
-import Card from './Card';
 import { isAuthentificated } from '../auth';
 import { getBraintreeClientToken, processPayment, createOrder } from './apiCore';
 import { emptyCart } from './cartHelpers';
@@ -25,10 +24,10 @@ const Checkout = ({ products }) => {
     const getToken = (userId, token) => {
         getBraintreeClientToken(userId, token)
             .then(data => {
-                console.log(data);
-                if (data.err) {
-                    setData({ ...data, error: data.err })
+                if (data === 'undefined') {
+                    setData({ ...data, error: "Can not load token" })
                 } else {
+                    console.log("access token")
                     setData({ clientToken: data.clientToken })
                 }
             })
@@ -62,7 +61,6 @@ const Checkout = ({ products }) => {
         let nonce;
         let getNonce = data.instance.requestPaymentMethod()
             .then(data => {
-                console.log(data);
                 nonce = data.nonce;
 
                 const paymentData = {
@@ -72,7 +70,6 @@ const Checkout = ({ products }) => {
 
                 processPayment(userId, token, paymentData)
                     .then(res => {
-                        console.log(res);
                         const createOrderData = {
                             products: products,
                             transaction_id: res.transaction.id,
@@ -85,7 +82,6 @@ const Checkout = ({ products }) => {
                         setData({ ...data, success: res.success })
                         emptyCart(() => {
                             setData({ loading: false, success: true })
-                            console.log('payment success and empty cart');
                         })
                         //create order
                     })
